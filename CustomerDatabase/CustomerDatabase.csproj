@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\IData.cs" />
-    <Compile Include="deletedclass.cs" />
     <Compile Include="FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
