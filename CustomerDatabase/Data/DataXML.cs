@@ -56,7 +56,7 @@ namespace CustomerDatabase
                 }
                 else
                 {
-                    Log.AddLog(LogType.Warning, DateTime.Now, "No previous Log available");
+                    Log.AddLog(LogType.Warning, DateTime.Now, "No customer file found");
                     return new List<Customer>();
                 }
             }
@@ -160,6 +160,8 @@ namespace CustomerDatabase
 
                         Log.AddLog(logType, date, error);
                     }
+
+                    Log.AddLog(LogType.Event, DateTime.Now, "Log loaded from XML file");
                 }
             }
             catch (Exception e)
