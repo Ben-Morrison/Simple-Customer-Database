@@ -23,5 +23,15 @@ namespace CustomerDatabase
         {
             data.SaveCustomers(c);
         }
+
+        public void LoadLog()
+        {
+            data.LoadLog();
+        }
+
+        public void SaveLog()
+        {
+            data.SaveLog();
+        }
     }
 }

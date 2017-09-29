@@ -24,11 +24,18 @@ namespace CustomerDatabase
         public FormMain()
         {
             InitializeComponent();
+
+            data.LoadLog();
             
             customers = data.LoadCustomers();
 
             updateFileMenu();
             updateStatusStrip();
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            data.SaveLog();
         }
 
         #region File Menu
@@ -100,6 +107,13 @@ namespace CustomerDatabase
             int countCustomers = customers.Count;
 
             MessageBox.Show("Customers: " + countCustomers.ToString(), "Statistics", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
+        // View > Log
+        private void menuViewLog_Click(object sender, EventArgs e)
+        {
+            FormLog form = new FormLog();
+            form.ShowDialog();
         }
 
         #endregion
@@ -487,7 +501,9 @@ namespace CustomerDatabase
                     }
                 }
 
+                Log.AddLog(LogType.Event, DateTime.Now, "Removing Customer: " + name);
                 customers.Remove(c);
+
                 data.SaveCustomers(customers);
 
                 updateStatusStrip();

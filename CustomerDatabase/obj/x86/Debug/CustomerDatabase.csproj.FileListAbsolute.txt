@@ -20,3 +20,4 @@ E:\Software Engineering\GitHub Repositories\Simple-Customer-Database\CustomerDat
 E:\Software Engineering\GitHub Repositories\Simple-Customer-Database\CustomerDatabase\obj\x86\Debug\CustomerDatabase.FormMain.resources
 E:\Software Engineering\GitHub Repositories\Simple-Customer-Database\CustomerDatabase\obj\x86\Debug\CustomerDatabase.Properties.Resources.resources
 E:\Software Engineering\GitHub Repositories\Simple-Customer-Database\CustomerDatabase\obj\x86\Debug\CustomerDatabase.csproj.GenerateResource.Cache
+E:\Software Engineering\GitHub Repositories\Simple-Customer-Database\CustomerDatabase\obj\x86\Debug\CustomerDatabase.FormLog.resources

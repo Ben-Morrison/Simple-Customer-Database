@@ -13,12 +13,17 @@ namespace CustomerDatabase
         private static readonly string fileName = "save.xml";
         private static readonly string fileFullPath = Application.StartupPath + @"\" + fileName;
 
+        private static readonly string logFileName = "log.xml";
+        private static readonly string logFullPath = Application.StartupPath + @"\" + logFileName;
+
         /// <summary>
         /// Loads Customers from an XML file
         /// </summary>
         /// <returns>Returns a List of Customers</returns>
         public List<Customer> LoadCustomers()
         {
+            Log.AddLog(LogType.Event, DateTime.Now, "Loading customers from XML file");
+
             List<Customer> customers = new List<Customer>();
 
             try
@@ -46,14 +51,18 @@ namespace CustomerDatabase
                         customers.Add(c);
                     }
 
+                    Log.AddLog(LogType.Event, DateTime.Now, "Customers successfully loaded");
                     return customers;
                 }
                 else
+                {
+                    Log.AddLog(LogType.Warning, DateTime.Now, "No previous Log available");
                     return new List<Customer>();
+                }
             }
             catch (Exception e)
             {
-                Log.AddLog(LogType.Error, DateTime.Now, e.Message);
+                Log.AddLog(LogType.Error, DateTime.Now, "Error loading customers: " + e.Message);
                 return new List<Customer>();
             }
         }
@@ -65,6 +74,8 @@ namespace CustomerDatabase
         /// <returns>Returns true or false for success or failure</returns>
         public bool SaveCustomers(List<Customer> customers)
         {
+            Log.AddLog(LogType.Event, DateTime.Now, "Saving customers to XML file");
+
             try
             {
                 if (File.Exists(fileFullPath))
@@ -97,12 +108,104 @@ namespace CustomerDatabase
                     writer.Close();
                 }
 
+                Log.AddLog(LogType.Event, DateTime.Now, "Customers successfully saved");
+
                 return true;
             }
             catch (Exception e)
             {
-                Log.AddLog(LogType.Error, DateTime.Now, e.Message);
+                Log.AddLog(LogType.Error, DateTime.Now, "Error saving customers: " + e.Message);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Loads the Log from an XML file
+        /// </summary>
+        /// <returns>Returns a List of Customers</returns>
+        public void LoadLog()
+        {
+            try
+            {
+                if (File.Exists(logFullPath))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(logFileName);
+
+                    XmlNodeList nodes = doc.SelectSingleNode("Logs").SelectNodes("Log");
+
+                    foreach (XmlNode node in nodes)
+                    {
+                        string type = node.SelectSingleNode("LogType").InnerText;
+                        DateTime date = Convert.ToDateTime(node.SelectSingleNode("Date").InnerText);
+                        string error = node.SelectSingleNode("Error").InnerText;
+
+                        LogType logType;
+
+                        switch(type)
+                        {
+                            case "Error":
+                                logType = LogType.Error;
+                                break;
+                            case "Warning":
+                                logType = LogType.Warning;
+                                break;
+                            case "Event":
+                                logType = LogType.Event;
+                                break;
+                            default:
+                                logType = LogType.Error;
+                                break;
+                        }
+
+                        Log.AddLog(logType, date, error);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Saves the Customers to an XML file
+        /// </summary>
+        /// <param name="customers">The Customers to save</param>
+        /// <returns>Returns true or false for success or failure</returns>
+        public void SaveLog()
+        {
+            Log.AddLog(LogType.Event, DateTime.Now, "Saving Log to XML file");
+
+            try
+            {
+                if (File.Exists(logFullPath))
+                    File.Delete(logFullPath);
+
+                using (XmlWriter writer = XmlWriter.Create(logFileName))
+                {
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("Logs");
+
+                    foreach (Log log in Log.GetLog())
+                    {
+                        writer.WriteStartElement("Log");
+
+                        writer.WriteElementString("LogType", log.LogType.ToString());
+                        writer.WriteElementString("Date", log.Date.ToString());
+                        writer.WriteElementString("Error", log.Error);
+
+                        writer.WriteEndElement();
+                    }
+
+                    writer.WriteEndElement();
+                    writer.WriteEndDocument();
+                    writer.Close();
+                }
+            }
+            catch (Exception e)
+            {
+
             }
         }
     }

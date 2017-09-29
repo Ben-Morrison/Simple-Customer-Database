@@ -44,6 +44,7 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuViewCustomers = new System.Windows.Forms.ToolStripMenuItem();
             this.menuViewStatistics = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuViewLog = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -116,7 +117,7 @@
             // 
             this.menuSave.Image = global::CustomerDatabase.Properties.Resources.saveHS;
             this.menuSave.Name = "menuSave";
-            this.menuSave.Size = new System.Drawing.Size(152, 22);
+            this.menuSave.Size = new System.Drawing.Size(141, 22);
             this.menuSave.Text = "&Save";
             this.menuSave.Click += new System.EventHandler(this.menuSave_Click);
             // 
@@ -136,7 +137,7 @@
             // menuClose
             // 
             this.menuClose.Name = "menuClose";
-            this.menuClose.Size = new System.Drawing.Size(152, 22);
+            this.menuClose.Size = new System.Drawing.Size(141, 22);
             this.menuClose.Text = "&Close";
             this.menuClose.Click += new System.EventHandler(this.menuClose_Click);
             // 
@@ -163,7 +164,8 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuViewCustomers,
-            this.menuViewStatistics});
+            this.menuViewStatistics,
+            this.menuViewLog});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "&View";
@@ -171,16 +173,23 @@
             // menuViewCustomers
             // 
             this.menuViewCustomers.Name = "menuViewCustomers";
-            this.menuViewCustomers.Size = new System.Drawing.Size(152, 22);
+            this.menuViewCustomers.Size = new System.Drawing.Size(131, 22);
             this.menuViewCustomers.Text = "&Customers";
             this.menuViewCustomers.Click += new System.EventHandler(this.menuViewCustomers_Click);
             // 
             // menuViewStatistics
             // 
             this.menuViewStatistics.Name = "menuViewStatistics";
-            this.menuViewStatistics.Size = new System.Drawing.Size(152, 22);
+            this.menuViewStatistics.Size = new System.Drawing.Size(131, 22);
             this.menuViewStatistics.Text = "&Statistics";
             this.menuViewStatistics.Click += new System.EventHandler(this.menuViewStatistics_Click);
+            // 
+            // menuViewLog
+            // 
+            this.menuViewLog.Name = "menuViewLog";
+            this.menuViewLog.Size = new System.Drawing.Size(131, 22);
+            this.menuViewLog.Text = "&Log";
+            this.menuViewLog.Click += new System.EventHandler(this.menuViewLog_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -292,6 +301,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customer Database";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -330,6 +340,7 @@
         private System.Windows.Forms.ToolStripButton toolSaveAll;
         private System.Windows.Forms.ToolStripButton toolClose;
         private System.Windows.Forms.ToolStripButton toolNew;
+        private System.Windows.Forms.ToolStripMenuItem menuViewLog;
     }
 }
 

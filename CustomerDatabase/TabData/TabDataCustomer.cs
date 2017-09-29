@@ -83,6 +83,8 @@ namespace CustomerDatabase
                 if (!exists)
                     FormMain.customers.Add(customer);
 
+                Log.AddLog(LogType.Event, DateTime.Now, "Saving new Customer: " + customer.FirstName + " " + customer.LastName);
+
                 data.SaveCustomers(FormMain.customers);
 
                 return true;

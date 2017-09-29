@@ -27,7 +27,7 @@ namespace CustomerDatabase
         /// </summary>
         /// <param name="date">The date and time the error occurred</param>
         /// <param name="error">The details of the error</param>
-        private Log(LogType logType, DateTime date, string error)
+        public Log(LogType logType, DateTime date, string error)
         {
             this.logType = logType;
             this.date = date;
@@ -115,7 +115,11 @@ namespace CustomerDatabase
         public static void AddLog(LogType logType, DateTime time, string error)
         {
             Log.Logs.Add(new Log(logType, time, error));
-            NewLog(null, new EventArgs());
+
+            if (NewLog != null)
+            {
+                NewLog(null, new EventArgs());
+            }
         }
     }
 }

@@ -9,5 +9,7 @@ namespace CustomerDatabase
     {
         List<Customer> LoadCustomers();
         bool SaveCustomers(List<Customer> customers);
+        void LoadLog();
+        void SaveLog();
     }
 }
